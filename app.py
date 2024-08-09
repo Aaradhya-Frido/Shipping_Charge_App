@@ -3,7 +3,8 @@ import pickle
 import numpy as np
 import pandas as pd
 import os
-excel_path = os.path('Rates.xlsx')
+
+excel_path = os.path.join('Rates.xlsx')
 df = pd.read_excel(excel_path)
 
 # df = pd.read_excel(
