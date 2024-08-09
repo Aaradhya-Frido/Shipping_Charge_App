@@ -2,10 +2,13 @@ import streamlit as st
 import pickle
 import numpy as np
 import pandas as pd
+import os
+excel_path = os.path('Rates.xlsx')
+df = pd.read_excel(excel_path)
 
-df = pd.read_excel(
-    io = 'C:\\Users\\AaradhyaSaxena\\OneDrive - Arcatron Mobility Pvt Ltd\\Transform_App\\Shipping Charges\Rates.xlsx'
-)
+# df = pd.read_excel(
+#     io = 'C:\\Users\\AaradhyaSaxena\\OneDrive - Arcatron Mobility Pvt Ltd\\Transform_App\\Shipping Charges\Rates.xlsx'
+# )
 def show_details():
     st.title("Shipping Charges Calculator")
     st.write("Enter the Required details below")
