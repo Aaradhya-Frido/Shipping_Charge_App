@@ -109,7 +109,10 @@ if st.button("Process"):
         
         # Calculate total charges
         df_uploaded['total_charges_cal'] = df_uploaded[['shipping_charges_cal', 'RTO_cal', 'cod_charges_cal']].sum(axis=1)
+        df_uploaded['total_charges_without_COD_Frido'] = df_uploaded[['shipping_charges_cal', 'RTO_cal']].sum(axis=1)
+        df_uploaded['total_charges_without_COD_WAREIQ'] = df_uploaded[['Forward', 'RTO']].sum(axis=1)
         df_uploaded["net_difference"]=df_uploaded[['total_charges_cal','Total']].diff(axis=1).iloc[:, -1]
+        df_uploaded["net_difference_without_COD"]=df_uploaded[['total_charges_without_COD_Frido','total_charges_without_COD_WAREIQ']].diff(axis=1).iloc[:, -1]
         st.write("Updated DataFrame with shipping charges:")
         st.dataframe(df_uploaded)
 
@@ -117,11 +120,12 @@ if st.button("Process"):
         total_sum = df_uploaded['Total'].sum()
         total_charges_sum = df_uploaded['total_charges_cal'].sum()
         net_difference_sum = df_uploaded['net_difference'].sum()
-
+        net_difference_sum_without_COD = df_uploaded["net_difference_without_COD"].sum()
         # Print the sums
         st.write(f"Total Cost Charged by WareIQ: {total_sum:.2f}")
         st.write(f"Total Cost Charged by Frido: {total_charges_sum:.2f}")
         st.write(f"Total Charge Differences: {net_difference_sum:.2f}")
+        st.write(f"Total Charge Differences without COD: {net_difference_sum_without_COD:.2f}")
 
     elif platform == "Bluedart":
         df_sheets = pd.read_excel(file_path, sheet_name=platform)
